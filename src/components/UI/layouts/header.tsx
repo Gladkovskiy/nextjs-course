@@ -12,6 +12,9 @@ import Link from 'next/link'
 import {siteConfig} from '@/config/site.config'
 import {usePathname} from 'next/navigation'
 import {layoutConfig} from '@/config/layout.config'
+import RegistrationModal from '../models/registration.modal'
+import LoginModal from '../models/login.modal'
+import {useState} from 'react'
 
 export const Logo = () => {
   return (
@@ -27,6 +30,7 @@ export const Logo = () => {
 
 export default function Header() {
   const pathname = usePathname()
+  const [modals, setModals] = useState({reg: false, log: false})
 
   const getNavItems = () =>
     siteConfig.navItems.map(item => (
@@ -64,14 +68,41 @@ export default function Header() {
 
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="#">Логин</Link>
+          <Button
+            as={Link}
+            color="primary"
+            href="#"
+            variant="flat"
+            onPress={() => {
+              setModals({...modals, log: true})
+            }}
+          >
+            Войти
+          </Button>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
+          <Button
+            as={Link}
+            color="primary"
+            href="#"
+            variant="flat"
+            onPress={() => {
+              setModals({...modals, reg: true})
+            }}
+          >
             Регистрация
           </Button>
         </NavbarItem>
       </NavbarContent>
+
+      <RegistrationModal
+        isOpen={modals.reg}
+        onClose={() => setModals({...modals, reg: false})}
+      />
+      <LoginModal
+        isOpen={modals.log}
+        onClose={() => setModals({...modals, log: false})}
+      />
     </Navbar>
   )
 }

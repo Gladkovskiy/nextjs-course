@@ -23,7 +23,6 @@
       "@/app/*": ["app/*"],
       "@/components/*": ["components/*"],
       "@/config/*": ["config/*"],
-      "@/forms/*": ["forms/*"],
       "@/providers/*": ["providers/*"]
     }
   },
