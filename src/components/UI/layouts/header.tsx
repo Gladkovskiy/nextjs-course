@@ -12,9 +12,9 @@ import Link from 'next/link'
 import {siteConfig} from '@/config/site.config'
 import {usePathname} from 'next/navigation'
 import {layoutConfig} from '@/config/layout.config'
-import RegistrationModal from '../models/registration.modal'
-import LoginModal from '../models/login.modal'
 import {useState} from 'react'
+import RegistrationModal from '@/components/UI/models/registration.modal'
+import LoginModal from '@/components/UI/models/login.modal'
 
 export const Logo = () => {
   return (

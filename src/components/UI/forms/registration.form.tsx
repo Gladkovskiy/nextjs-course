@@ -3,12 +3,13 @@
 import {Form} from '@heroui/form'
 import {Button, Input} from '@heroui/react'
 import {useFormik} from 'formik'
-import {registrationInitialState} from './initalState'
+
 import {
   RegistrationNamesType,
   RegistrationSchemType,
   registrationValidation,
-} from './validation'
+} from '@/components/UI/forms/validation'
+import {registrationInitialState} from '@/components/UI/forms/initalState'
 
 interface IProps {
   onClose: () => void

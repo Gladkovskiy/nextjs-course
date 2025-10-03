@@ -3,8 +3,13 @@
 import {Form} from '@heroui/form'
 import {Button, Input} from '@heroui/react'
 import {useFormik} from 'formik'
-import {loginInitialState} from './initalState'
-import {LoginNamesType, LoginSchemType, loginValidation} from './validation'
+
+import {
+  LoginNamesType,
+  LoginSchemType,
+  loginValidation,
+} from '@/components/UI/forms/validation'
+import {loginInitialState} from '@/components/UI/forms/initalState'
 
 interface IProps {
   onClose: () => void

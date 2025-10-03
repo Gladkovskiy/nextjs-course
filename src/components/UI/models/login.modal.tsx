@@ -1,7 +1,7 @@
 'use client'
 
 import CustomModal from '@/components/common/modal'
-import LoginForm from '../forms/login.form'
+import LoginForm from '@/components/UI/forms/login.form'
 
 interface IProps {
   isOpen: boolean
