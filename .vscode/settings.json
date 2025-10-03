@@ -1,0 +1,4 @@
+{
+  "path-intellisense.absolutePathToWorkspace": true,
+  "typescript.preferences.importModuleSpecifier": "shortest"
+}
