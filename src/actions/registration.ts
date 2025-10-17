@@ -1,19 +1,21 @@
 'use server'
 
 import {RegistrationSchemType} from '@/components/UI/forms/validation'
+import {saltAndHashPassword} from '@/utils/password'
 import prisma from 'utils/prisma'
 
 export const registrationUser = async (values: RegistrationSchemType) => {
 	const {email, password} = values
 
 	try {
-		const user = await prisma.user.create({data: {email, password}})
-
-		console.log('user', user)
+		const hashedPassword = await saltAndHashPassword(password)
+		const user = await prisma.user.create({
+			data: {email, password: hashedPassword},
+		})
 
 		return user
 	} catch (error) {
-		console.log('Ошибка при регистрации:', error)
-		return {error: 'Ошибка при регистрации'}
+		console.error('User not registered', error)
+		return error
 	}
 }

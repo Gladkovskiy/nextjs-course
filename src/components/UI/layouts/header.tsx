@@ -10,11 +10,14 @@ import {
 	NavbarBrand,
 	NavbarContent,
 	NavbarItem,
+	Spinner,
 } from '@heroui/react'
+import {signOutFunc} from 'actions/sign-out'
 import Image from 'next/image'
 import Link from 'next/link'
 import {usePathname} from 'next/navigation'
 import {useState} from 'react'
+import {useAuthStore} from 'store/auth.store'
 
 export const Logo = () => {
 	return (
@@ -27,9 +30,11 @@ export const Logo = () => {
 		/>
 	)
 }
+
 export default function Header() {
 	const pathname = usePathname()
 	const [modals, setModals] = useState({reg: false, log: false})
+	const {isAuth, session, setAuthState, status} = useAuthStore()
 
 	const getNavItems = () =>
 		siteConfig.navItems.map(item => (
@@ -37,16 +42,19 @@ export default function Header() {
 				<Link
 					color='foreground'
 					href={item.href}
-					className={`px-3 py-1 border-transparent border-1 rounded-md
-                ${
-									pathname === item.href ? 'text-blue-500' : 'text-foreground'
-								} hover:border hover:text-blue-300 hover:border-blue-300 hover:rounded-md transition-colors duration-200 transition-border
-                `}
+					className={`px-3 py-1 rounded-2xl ${
+						pathname === item.href ? 'bg-blue-300 rounded-2xl text-white' : ''
+					} hover:bg-blue-300 hover:text-white hover:rounded-2xl transition-all duration-300 ease-in-out`}
 				>
 					{item.label}
 				</Link>
 			</NavbarItem>
 		))
+
+	const handleSignOut = async () => {
+		await signOutFunc()
+		setAuthState('unauthenticated', null)
+	}
 
 	return (
 		<Navbar
@@ -65,34 +73,61 @@ export default function Header() {
 				{getNavItems()}
 			</NavbarContent>
 
-			<NavbarContent justify='end'>
-				<NavbarItem className='hidden lg:flex'>
-					<Button
-						as={Link}
-						color='primary'
-						href='#'
-						variant='flat'
-						onPress={() => {
-							setModals({...modals, log: true})
-						}}
-					>
-						Войти
-					</Button>
-				</NavbarItem>
-				<NavbarItem>
-					<Button
-						as={Link}
-						color='primary'
-						href='#'
-						variant='flat'
-						onPress={() => {
-							setModals({...modals, reg: true})
-						}}
-					>
-						Регистрация
-					</Button>
-				</NavbarItem>
-			</NavbarContent>
+			{status === 'loading' && (
+				<NavbarContent>
+					<div className=' w-full flex justify-center'>
+						<Spinner size='sm' />
+					</div>
+				</NavbarContent>
+			)}
+
+			{status != 'loading' && (
+				<NavbarContent justify='end'>
+					{isAuth && <p className=' text-sm'>Привет, {session?.user?.email}</p>}
+					{isAuth ? (
+						<NavbarItem className='hidden lg:flex'>
+							<Button
+								as={Link}
+								color='primary'
+								href='#'
+								variant='flat'
+								onPress={handleSignOut}
+							>
+								Выйти
+							</Button>
+						</NavbarItem>
+					) : (
+						<>
+							<NavbarItem className='hidden lg:flex'>
+								<Button
+									as={Link}
+									color='primary'
+									href='#'
+									variant='flat'
+									onPress={() => {
+										setModals({...modals, log: true})
+									}}
+								>
+									Войти
+								</Button>
+							</NavbarItem>
+							<NavbarItem>
+								<Button
+									as={Link}
+									color='primary'
+									href='#'
+									variant='flat'
+									onPress={() => {
+										setModals({...modals, reg: true})
+									}}
+								>
+									Регистрация
+								</Button>
+							</NavbarItem>
+						</>
+					)}
+				</NavbarContent>
+			)}
 
 			<RegistrationModal
 				isOpen={modals.reg}
