@@ -4,29 +4,40 @@ import {Form} from '@heroui/form'
 import {Button, Input} from '@heroui/react'
 import {useFormik} from 'formik'
 
-import {signInFunc} from '@/actions/sign-in'
 import {loginInitialState} from '@/components/UI/forms/initalState'
 import {
 	LoginNamesType,
 	LoginSchemType,
 	loginValidation,
 } from '@/components/UI/forms/validation'
+import {signIn} from '@/lib/auth-client'
+import {useState} from 'react'
 
 interface IProps {
 	onClose: () => void
 }
 
 const LoginForm = ({onClose}: IProps) => {
+	const [error, setError] = useState<string | null>(null)
+
 	const formik = useFormik<LoginSchemType>({
 		initialValues: loginInitialState,
 		validationSchema: loginValidation,
 		onSubmit: async values => {
-			await signInFunc(values)
+			const {email, password} = values
 
-			// костыль, непнятно как обновить сессию
-			window.location.reload()
+			const res = await signIn.email({
+				email,
+				password,
+			})
 
-			onClose()
+			if (res.error) {
+				setError(res.error.message || 'Something went wrong...')
+			} else {
+				// костыль, непнятно как обновить сессию
+				// window.location.reload()
+				onClose()
+			}
 		},
 	})
 
@@ -46,6 +57,8 @@ const LoginForm = ({onClose}: IProps) => {
 				errorMessage={formik.errors.password}
 				isInvalid={!!formik.errors.password && !!formik.touched.password}
 			/>
+
+			{error && <p className='text-red-500'>{error}</p>}
 
 			<div className=' flex w-full gap-4  items-center justify-end pt-8'>
 				<Button type='reset' onPress={onClose}>

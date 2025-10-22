@@ -28,7 +28,8 @@
 			"@/utils/*": ["utils/*"],
 			"@/auth/*": ["auth/*"],
 			"@/actions/*": ["actions/*"],
-			"@/types/*": ["types/*"]
+			"@/types/*": ["types/*"],
+			"@/lib/*": ["lib/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
