@@ -18,8 +18,8 @@
 	}
 } */
 
-export interface ActionResponse<T = null> {
+export interface ActionResponse<T> {
 	success: boolean
 	message: string
-	responseObject: T
+	responseObject?: T
 }

@@ -23,6 +23,7 @@ export const Logo = () => {
 export default function Header() {
 	return (
 		<Navbar
+			className=' w-full'
 			style={{
 				height: `${layoutConfig.headerHeight}`,
 			}}

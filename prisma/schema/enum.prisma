@@ -1,0 +1,16 @@
+enum Category {
+  VEGETABLES
+  FRUITS
+  MEAT
+  DAIRY
+  SPICES
+  OTHER
+}
+
+enum Unit {
+  GRAMS
+  KILOGRAM
+  LITERS
+  MILILITERS
+  PIECES
+}
