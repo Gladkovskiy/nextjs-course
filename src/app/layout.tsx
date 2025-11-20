@@ -34,7 +34,6 @@ export default async function RootLayout({
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased container mx-auto px-4`}>
 				<Providers>
 					<Header />
-
 					<Title />
 					<main
 						className={` container mx-auto px-4`}
