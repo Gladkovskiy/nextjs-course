@@ -31,11 +31,10 @@ export default async function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased container mx-auto px-4`}
-			>
+			<body className={`${geistSans.variable} ${geistMono.variable} antialiased container mx-auto px-4`}>
 				<Providers>
 					<Header />
+
 					<Title />
 					<main
 						className={` container mx-auto px-4`}
@@ -46,10 +45,7 @@ export default async function RootLayout({
 						{children}
 					</main>
 
-					<footer
-						className={`flex items-center justify-center`}
-						style={{height: `${layoutConfig.footerHeight}`}}
-					>
+					<footer className={`flex items-center justify-center`} style={{height: `${layoutConfig.footerHeight}`}}>
 						<p>{siteConfig.description}</p>
 					</footer>
 				</Providers>

@@ -5,9 +5,7 @@ import {usePathname} from 'next/navigation'
 
 const Title = () => {
 	const pathname = usePathname()
-	const currentNavItem = siteConfig.navItems.find(
-		item => pathname === item.href
-	)
+	const currentNavItem = siteConfig.navItems.find(item => pathname === item.href)
 	const pageTitle = currentNavItem ? currentNavItem.label : siteConfig.title
 
 	return (
