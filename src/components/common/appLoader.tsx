@@ -1,20 +1,14 @@
 'use client'
 
-import {useSession} from 'next-auth/react'
-import React, {useEffect} from 'react'
-import {useAuthStore} from 'store/auth.store'
+import {useIngredientActions} from '@/lib/store/ingredient/hooks'
+import {FC, PropsWithChildren, useEffect} from 'react'
 
-interface IProps {
-	children: React.ReactNode
-}
-
-const AppLoader = ({children}: IProps) => {
-	const {data: session, status} = useSession()
-	const {setAuthState} = useAuthStore()
+const AppLoader: FC<PropsWithChildren> = ({children}) => {
+	const {loadIngredients} = useIngredientActions()
 
 	useEffect(() => {
-		setAuthState(status, session)
-	}, [session, status, setAuthState])
+		loadIngredients()
+	}, [loadIngredients])
 
 	return <>{children}</>
 }

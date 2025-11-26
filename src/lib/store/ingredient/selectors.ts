@@ -1,10 +1,10 @@
-import {IIngredientStore} from '@/lib/store/ingredient/types'
+import {IngredientStore} from '@/lib/store/ingredient/types'
 
 //если возвращаешь объект то на уровне хуков используй useShallow
-export const ingredientSelector = (state: IIngredientStore) => ({
+export const ingredientSelector = (state: IngredientStore) => ({
 	ingredients: state.ingredients,
 	isLoading: state.isLoading,
 	error: state.error,
 })
 
-export const ingredientsActionSelector = (state: IIngredientStore) => state.actions
+export const ingredientsActionSelector = (state: IngredientStore) => state.actions

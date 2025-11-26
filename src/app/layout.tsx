@@ -4,6 +4,7 @@ import {Geist, Geist_Mono} from 'next/font/google'
 import {siteConfig} from '@/config/site.config'
 import './globals.css'
 
+import AppLoader from '@/components/common/appLoader'
 import Header from '@/components/UI/layouts/header/header'
 import Title from '@/components/UI/layouts/title'
 import {layoutConfig} from '@/config/layout.config'
@@ -33,20 +34,22 @@ export default async function RootLayout({
 		<html lang='en'>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased container mx-auto px-4`}>
 				<Providers>
-					<Header />
-					<Title />
-					<main
-						className={` container mx-auto px-4`}
-						style={{
-							height: `calc(100vh - ${layoutConfig.headerHeight} - ${layoutConfig.footerHeight})`,
-						}}
-					>
-						{children}
-					</main>
+					<AppLoader>
+						<Header />
+						<Title />
+						<main
+							className={` container mx-auto px-4`}
+							style={{
+								height: `calc(100vh - ${layoutConfig.headerHeight} - ${layoutConfig.footerHeight})`,
+							}}
+						>
+							{children}
+						</main>
 
-					<footer className={`flex items-center justify-center`} style={{height: `${layoutConfig.footerHeight}`}}>
-						<p>{siteConfig.description}</p>
-					</footer>
+						<footer className={`flex items-center justify-center`} style={{height: `${layoutConfig.footerHeight}`}}>
+							<p>{siteConfig.description}</p>
+						</footer>
+					</AppLoader>
 				</Providers>
 			</body>
 		</html>

@@ -53,9 +53,8 @@ services:
       - app-network
 
   prisma-studio:
-    container_name: prisma-studio
+    container_name: studio
     image: timothyjmiller/prisma-studio:latest
-    restart: unless-stopped
     env_file:
       - .env
     ports:
