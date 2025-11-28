@@ -9,7 +9,7 @@ enum Category {
 
 enum Unit {
   GRAMS
-  KILOGRAM
+  KILOGRAMS
   LITERS
   MILILITERS
   PIECES

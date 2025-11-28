@@ -5,12 +5,8 @@ import {Button, Input} from '@heroui/react'
 import {useFormik} from 'formik'
 
 import {loginInitialState} from '@/components/UI/forms/initalState'
-import {
-	LoginNamesType,
-	LoginSchemType,
-	loginValidation,
-} from '@/components/UI/forms/validation'
-import {signIn} from '@/lib/auth-client'
+import {LoginNamesType, LoginSchemType, loginValidation} from '@/components/UI/forms/validation'
+import {signIn} from '@/lib/auth/auth-client'
 import {useState} from 'react'
 
 interface IProps {

@@ -1,7 +1,7 @@
 'use server'
 
 import {IngredientsSchemType} from '@/components/UI/forms/validation'
-import prisma from '@/lib/prisma'
+import prisma from '@/lib/prisma/prisma'
 import {ActionResponse} from '@/types/resposnse'
 import {Ingredient} from 'generated/prisma'
 

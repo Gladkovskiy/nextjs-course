@@ -9,7 +9,7 @@
 		"lint": "eslint",
 		"prisma:studio": "npx prisma studio",
 		"prisma:generate": "npx prisma generate",
-		"prisma:push": "npx prisma db push",
+		"prisma:push": "npx prisma db push --accept-data-loss",
 		"docker:start": "docker compose --profile dev up --watch",
 		"docker:down": "docker compose --profile dev down",
 		"docker:stop": "docker compose --profile dev stop"

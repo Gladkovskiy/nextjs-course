@@ -2,7 +2,7 @@
 
 import LoginModal from '@/components/UI/models/login.modal'
 import RegistrationModal from '@/components/UI/models/registration.modal'
-import {signOut, useSession} from '@/lib/auth-client'
+import {signOut, useSession} from '@/lib/auth/auth-client'
 import {NavbarContent, NavbarItem} from '@heroui/navbar'
 import {Button, Spinner} from '@heroui/react'
 import Link from 'next/link'
@@ -24,18 +24,10 @@ const DashboardHeader = () => {
 	return (
 		<>
 			<NavbarContent justify='end'>
-				{session?.user && (
-					<p className=' text-sm'>Привет, {session?.user?.name}</p>
-				)}
+				{session?.user && <p className=' text-sm'>Привет, {session?.user?.name}</p>}
 				{session?.user ? (
 					<NavbarItem className='hidden lg:flex'>
-						<Button
-							as={Link}
-							color='primary'
-							href='#'
-							variant='flat'
-							onPress={() => signOut()}
-						>
+						<Button as={Link} color='primary' href='#' variant='flat' onPress={() => signOut()}>
 							Выйти
 						</Button>
 					</NavbarItem>
@@ -71,14 +63,8 @@ const DashboardHeader = () => {
 				)}
 			</NavbarContent>
 
-			<RegistrationModal
-				isOpen={modals.reg}
-				onClose={() => setModals({...modals, reg: false})}
-			/>
-			<LoginModal
-				isOpen={modals.log}
-				onClose={() => setModals({...modals, log: false})}
-			/>
+			<RegistrationModal isOpen={modals.reg} onClose={() => setModals({...modals, reg: false})} />
+			<LoginModal isOpen={modals.log} onClose={() => setModals({...modals, log: false})} />
 		</>
 	)
 }

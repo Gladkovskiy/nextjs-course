@@ -1,8 +1,5 @@
-import {
-	IngredientsSchemType,
-	LoginSchemType,
-	RegistrationSchemType,
-} from './validation'
+import {Category, Unit} from 'generated/prisma'
+import {IngredientsSchemType, LoginSchemType, RegistrationSchemType} from './validation'
 
 export const registrationInitialState: RegistrationSchemType = {
 	name: '',
@@ -18,8 +15,8 @@ export const loginInitialState: LoginSchemType = {
 
 export const ingredientsInitialState: IngredientsSchemType = {
 	name: '',
-	category: '',
+	category: Category.VEGETABLES,
 	description: '',
 	pricePerUnit: null,
-	unit: '',
+	unit: Unit.KILOGRAMS,
 }

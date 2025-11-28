@@ -1,38 +1,30 @@
 'use client'
 
-import {createIngredient} from '@/actions/ingredient'
 import {ingredientsInitialState} from '@/components/UI/forms/initalState'
-import {
-	IngredientsNamesType,
-	IngredientsSchemType,
-	ingredientsValidation,
-} from '@/components/UI/forms/validation'
+import {IngredientsNamesType, IngredientsSchemType, ingredientsValidation} from '@/components/UI/forms/validation'
 import {CATEGORY_OPTIONS, UNIT_OPTIONS} from '@/config/const/select-option'
+import {useIngredient, useIngredientActions} from '@/lib/store/ingredient/hooks'
 import {Form} from '@heroui/form'
 import {Button, Input, Select, SelectItem} from '@heroui/react'
 import {useFormik} from 'formik'
-import {FC, useState, useTransition} from 'react'
+import {FC} from 'react'
 
 const IngredientForm: FC = () => {
-	const [response, setResponse] = useState({message: '', success: true})
-	const [loading, setLoading] = useTransition()
+	const {addIngredient} = useIngredientActions()
+	const {error, isLoading} = useIngredient()
 
 	const formik = useFormik<IngredientsSchemType>({
 		initialValues: ingredientsInitialState,
 		validationSchema: ingredientsValidation,
 		onSubmit: async values => {
-			setLoading(async () => {
-				const addIngredient = await createIngredient(values)
+			await addIngredient(values)
 
-				setResponse(addIngredient)
-
-				if (addIngredient.success) formik.resetForm()
-			})
+			if (!error) formik.resetForm()
 		},
 	})
 
 	return (
-		<Form className=' w-[500px]' onSubmit={formik.handleSubmit}>
+		<Form className=' w-full border-1 p-5 rounded-2xl border-gray-300 shadow' onSubmit={formik.handleSubmit}>
 			<Input
 				label='имя ингридиента'
 				{...formik.getFieldProps('name' as IngredientsNamesType)}
@@ -77,9 +69,7 @@ const IngredientForm: FC = () => {
 						type='number'
 						{...formik.getFieldProps('pricePerUnit' as IngredientsNamesType)}
 						errorMessage={formik.errors.pricePerUnit}
-						isInvalid={
-							!!formik.errors.pricePerUnit && !!formik.touched.pricePerUnit
-						}
+						isInvalid={!!formik.errors.pricePerUnit && !!formik.touched.pricePerUnit}
 						endContent={<span>$</span>}
 					/>
 				</div>
@@ -93,13 +83,9 @@ const IngredientForm: FC = () => {
 			/>
 
 			<div className=' flex w-full items-center justify-end gap-2'>
-				<p
-					className={`${response.success ? 'text-green-500' : 'text-red-500'}`}
-				>
-					{response.message}
-				</p>
+				<p className={'text-red-500'}>{error}</p>
 
-				<Button color='primary' type='submit' isLoading={loading}>
+				<Button color='primary' type='submit' isLoading={isLoading} className=' mt-3'>
 					Добавить ингридиент
 				</Button>
 			</div>
