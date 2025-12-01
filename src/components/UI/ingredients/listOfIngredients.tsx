@@ -2,6 +2,7 @@
 
 import {INGREDIENTS_TABLE_COLUMN_NAME} from '@/config/const/ingredient-table-name'
 import {CATEGORY_OPTIONS, UNIT_OPTIONS} from '@/config/const/select-option'
+import {useSession} from '@/lib/auth/auth-client'
 import {useIngredient, useIngredientActions} from '@/lib/store/ingredient/hooks'
 import {Button, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from '@heroui/react'
 import {FC} from 'react'
@@ -9,6 +10,10 @@ import {FC} from 'react'
 const LitsOfIngrediets: FC = () => {
 	const {ingredients} = useIngredient()
 	const {removeIngredient} = useIngredientActions()
+	const {data} = useSession()
+
+	if (!data?.user) return null
+
 	return (
 		<Table aria-label='Список ингердиентов' className=' mt-4 w-full'>
 			<TableHeader>

@@ -3,6 +3,7 @@
 import {ingredientsInitialState} from '@/components/UI/forms/initalState'
 import {IngredientsNamesType, IngredientsSchemType, ingredientsValidation} from '@/components/UI/forms/validation'
 import {CATEGORY_OPTIONS, UNIT_OPTIONS} from '@/config/const/select-option'
+import {useSession} from '@/lib/auth/auth-client'
 import {useIngredient, useIngredientActions} from '@/lib/store/ingredient/hooks'
 import {Form} from '@heroui/form'
 import {Button, Input, Select, SelectItem} from '@heroui/react'
@@ -12,6 +13,7 @@ import {FC} from 'react'
 const IngredientForm: FC = () => {
 	const {addIngredient} = useIngredientActions()
 	const {error, isLoading} = useIngredient()
+	const {data} = useSession()
 
 	const formik = useFormik<IngredientsSchemType>({
 		initialValues: ingredientsInitialState,
@@ -22,6 +24,8 @@ const IngredientForm: FC = () => {
 			if (!error) formik.resetForm()
 		},
 	})
+
+	if (!data?.user) return null
 
 	return (
 		<Form className=' w-full border-1 p-5 rounded-2xl border-gray-300 shadow' onSubmit={formik.handleSubmit}>
