@@ -1,0 +1,22 @@
+model Recipe {
+  id          String               @id @default(uuid())
+  name        String
+  description String
+  imageUrl    String?              @map("image_url")
+  ingredients RecipeOnIngredient[]
+  createdAt   DateTime             @default(now()) @map("created_at")
+  updatedAt   DateTime             @default(now()) @map("updated_at")
+
+  @@map("recipe")
+}
+
+model RecipeOnIngredient {
+  id           String     @id @default(uuid())
+  recipeId     String
+  ingredientId String
+  recipe       Recipe     @relation(fields: [recipeId], references: [id])
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  quantity     Float
+
+  @@map("recipe_on_ingredient")
+}

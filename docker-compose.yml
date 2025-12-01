@@ -24,8 +24,6 @@ services:
           target: /app/public
         - action: rebuild
           path: package.json
-        - action: rebuild
-          path: ./prisma
     profiles:
       - dev
     networks:
