@@ -5,10 +5,10 @@ import {siteConfig} from '@/config/site.config'
 import './globals.css'
 
 import AppLoader from '@/components/common/appLoader'
+import {Providers} from '@/components/common/providers'
 import Header from '@/components/UI/layouts/header/header'
 import Title from '@/components/UI/layouts/title'
 import {layoutConfig} from '@/config/layout.config'
-import {Providers} from '@/providers/providers'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -35,20 +35,19 @@ export default async function RootLayout({
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased container mx-auto px-4`}>
 				<Providers>
 					<AppLoader>
-						<Header />
-						<Title />
-						<main
-							className={` container mx-auto px-4`}
-							style={{
-								height: `calc(100vh - ${layoutConfig.headerHeight} - ${layoutConfig.footerHeight})`,
-							}}
-						>
-							{children}
-						</main>
+						<div className=' flex flex-col min-h-screen justify-between'>
+							<div className=' flex flex-col'>
+								<Header />
+								<main className={`flex flex-col max-w-[1024px] mx-auto`}>
+									<Title />
+									{children}
+								</main>
+							</div>
 
-						<footer className={`flex items-center justify-center`} style={{height: `${layoutConfig.footerHeight}`}}>
-							<p>{siteConfig.description}</p>
-						</footer>
+							<footer className={`flex items-center justify-center`} style={{height: `${layoutConfig.footerHeight}`}}>
+								<p>{siteConfig.description}</p>
+							</footer>
+						</div>
 					</AppLoader>
 				</Providers>
 			</body>

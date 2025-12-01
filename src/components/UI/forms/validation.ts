@@ -1,3 +1,4 @@
+import {Category, Unit} from 'generated/prisma'
 import z from 'zod'
 import {toFormikValidationSchema} from 'zod-formik-adapter'
 
@@ -17,8 +18,7 @@ export const RegistrationSchema = z
 		path: ['repeatPassword'],
 	})
 
-export const registrationValidation =
-	toFormikValidationSchema(RegistrationSchema)
+export const registrationValidation = toFormikValidationSchema(RegistrationSchema)
 export type RegistrationSchemType = z.infer<typeof RegistrationSchema>
 export type RegistrationNamesType = keyof RegistrationSchemType
 
@@ -38,11 +38,10 @@ export type LoginNamesType = keyof LoginSchemType
 //--------------------------
 export const IngredientsSchema = z.object({
 	name: z.string({error: 'Обязательное поле для ввода'}),
-	category: z.enum(
-		['VEGETABLES', 'FRUITS', 'MEAT', 'DAIRY', 'SPICES', 'OTHER'],
-		{error: 'Обязательное поле для ввода'}
-	),
-	unit: z.enum(['GRAMS', 'KILOGRAM', 'LITERS', 'MILILITERS', 'PIECES'], {
+	category: z.enum(Category, {
+		error: 'Обязательное поле для ввода',
+	}),
+	unit: z.enum(Unit, {
 		error: 'Обязательное поле для ввода',
 	}),
 	pricePerUnit: z

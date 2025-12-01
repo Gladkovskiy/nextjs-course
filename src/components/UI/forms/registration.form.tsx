@@ -5,12 +5,8 @@ import {Button, Input} from '@heroui/react'
 import {useFormik} from 'formik'
 
 import {registrationInitialState} from '@/components/UI/forms/initalState'
-import {
-	RegistrationNamesType,
-	RegistrationSchemType,
-	registrationValidation,
-} from '@/components/UI/forms/validation'
-import {signUp} from '@/lib/auth-client'
+import {RegistrationNamesType, RegistrationSchemType, registrationValidation} from '@/components/UI/forms/validation'
+import {signUp} from '@/lib/auth/auth-client'
 import {useState} from 'react'
 
 interface IProps {
@@ -69,9 +65,7 @@ const RegistrationForm = ({onClose}: IProps) => {
 				type='password'
 				{...formik.getFieldProps('repeatPassword' as RegistrationNamesType)}
 				errorMessage={formik.errors.repeatPassword}
-				isInvalid={
-					!!formik.errors.repeatPassword && !!formik.touched.repeatPassword
-				}
+				isInvalid={!!formik.errors.repeatPassword && !!formik.touched.repeatPassword}
 			/>
 
 			{error && <p className='text-red-500'>{error}</p>}

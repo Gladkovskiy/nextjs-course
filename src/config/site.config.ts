@@ -1,21 +1,30 @@
+export enum PATHS {
+	ROOT = '/',
+	INGREDIENTS = '/ingredients',
+	ABOUT = '/about',
+	ERROR = '/error',
+}
+
 export const siteConfig = {
 	title: 'Кухня',
 	description: 'Рецепты кухни',
 	navItems: [
-		{href: '/', label: 'Рецепты'},
-		{href: '/ingredients', label: 'Ингредиенты'},
-		{href: '/about', label: 'О нас'},
+		{href: PATHS.ROOT, label: 'Рецепты'},
+		{href: PATHS.INGREDIENTS, label: 'Ингредиенты'},
+		{href: PATHS.ABOUT, label: 'О нас'},
 	],
-} as const
+}
 
 export const pageContentConfig = {
-	'/': {
+	[PATHS.ROOT]: {
 		context: '<p>Здесь будут рецепты...</p>',
 	},
-	'/ingredients': {
+	[PATHS.INGREDIENTS]: {
 		context: '<p>Традиционные ингредиенты кухни...</p>',
 	},
-	'/about': {
+	[PATHS.ABOUT]: {
 		context: '<p>Вкус многовековых традиций...</p>',
 	},
 }
+
+export const protectedPath = [PATHS.INGREDIENTS]
