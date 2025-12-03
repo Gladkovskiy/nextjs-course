@@ -1,9 +1,11 @@
-import {createIngredient, deleteIngredient, getIngredients} from '@/actions/ingredient'
+import {ingredientApi} from '@/actions/ingredient'
 import {IngredientsSchemType} from '@/components/UI/forms/validation'
 import {IngredientState, IngredientStore} from '@/lib/store/ingredient/types'
 import {create} from 'zustand'
 import {devtools, DevtoolsOptions} from 'zustand/middleware'
 import {immer} from 'zustand/middleware/immer'
+
+const {createIngredient, getIngredients, deleteIngredient} = ingredientApi
 
 const ingredientState: IngredientState = {
 	ingredients: [],
