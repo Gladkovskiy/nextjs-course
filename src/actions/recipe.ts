@@ -1,8 +1,9 @@
+import {RecipeSchemType} from '@/lib/formik/recipe/validation'
 import prisma from '@/lib/prisma/prisma'
 import {ActionResponse} from '@/types/resposnse'
 import {Recipe} from 'generated/prisma'
 
-const getRecipes = async (): Promise<ActionResponse<Recipe[]>> => {
+export const getRecipes = async (): Promise<ActionResponse<Recipe[]>> => {
 	try {
 		const recipes = await prisma.recipe.findMany({
 			include: {
@@ -29,15 +30,7 @@ const getRecipes = async (): Promise<ActionResponse<Recipe[]>> => {
 	}
 }
 
-const createRecipe = async (values: {
-	name: string
-	description: string
-	imageUrl: string
-	ingredients: {
-		id: string
-		quantity: number
-	}[]
-}): Promise<ActionResponse<Recipe>> => {
+export const createRecipe = async (values: RecipeSchemType): Promise<ActionResponse<Recipe>> => {
 	try {
 		const {name, description, imageUrl, ingredients} = values
 
@@ -83,16 +76,7 @@ const createRecipe = async (values: {
 	}
 }
 
-const updateRecipe = async (values: {
-	id: string
-	name: string
-	description: string
-	imageUrl: string
-	ingredients: {
-		id: string
-		quantity: number
-	}[]
-}): Promise<ActionResponse<Recipe>> => {
+export const updateRecipe = async (values: RecipeSchemType & {id: string}): Promise<ActionResponse<Recipe>> => {
 	try {
 		const {id, name, description, imageUrl, ingredients} = values
 		const recipe = await prisma.recipe.update({
@@ -133,7 +117,7 @@ const updateRecipe = async (values: {
 	}
 }
 
-const deleteRecipe = async (id: string) => {
+export const deleteRecipe = async (id: string) => {
 	try {
 		await prisma.recipeOnIngredient.deleteMany({
 			where: {recipeId: id},
@@ -155,11 +139,4 @@ const deleteRecipe = async (id: string) => {
 			success: false,
 		}
 	}
-}
-
-export const recipeApi = {
-	getRecipes,
-	createRecipe,
-	updateRecipe,
-	deleteRecipe,
 }

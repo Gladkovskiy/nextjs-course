@@ -1,5 +1,5 @@
-import {useIngredientStore} from '@/lib/store/ingredient/ingredientStore'
 import {ingredientsActionSelector, ingredientSelector} from '@/lib/store/ingredient/selectors'
+import {useIngredientStore} from '@/lib/store/ingredient/store'
 import {IngredientStore} from '@/lib/store/ingredient/types'
 import {useShallow} from 'zustand/react/shallow'
 

@@ -5,7 +5,7 @@ import prisma from '@/lib/prisma/prisma'
 import {ActionResponse} from '@/types/resposnse'
 import {Ingredient} from 'generated/prisma'
 
-const createIngredient = async (values: IngredientsSchemType): Promise<ActionResponse<Ingredient>> => {
+export const createIngredient = async (values: IngredientsSchemType): Promise<ActionResponse<Ingredient>> => {
 	try {
 		const ingredient = await prisma.ingredient.create({
 			data: values,
@@ -25,7 +25,7 @@ const createIngredient = async (values: IngredientsSchemType): Promise<ActionRes
 	}
 }
 
-const getIngredients = async (): Promise<ActionResponse<Ingredient[]>> => {
+export const getIngredients = async (): Promise<ActionResponse<Ingredient[]>> => {
 	try {
 		const ingredients = await prisma.ingredient.findMany()
 
@@ -44,7 +44,7 @@ const getIngredients = async (): Promise<ActionResponse<Ingredient[]>> => {
 	}
 }
 
-const deleteIngredient = async (id: string): Promise<ActionResponse<Ingredient>> => {
+export const deleteIngredient = async (id: string): Promise<ActionResponse<Ingredient>> => {
 	try {
 		const ingredient = await prisma.ingredient.delete({
 			where: {
@@ -65,10 +65,4 @@ const deleteIngredient = async (id: string): Promise<ActionResponse<Ingredient>>
 			success: false,
 		}
 	}
-}
-
-export const ingredientApi = {
-	createIngredient,
-	getIngredients,
-	deleteIngredient,
 }
