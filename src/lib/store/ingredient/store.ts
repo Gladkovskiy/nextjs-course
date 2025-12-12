@@ -1,5 +1,6 @@
 import {createIngredient, deleteIngredient, getIngredients} from '@/actions/ingredient'
-import {IngredientsSchemType} from '@/components/UI/forms/validation'
+import {IngredientsSchemType} from '@/lib/formik/ingredient/validation'
+
 import {IngredientState, IngredientStore} from '@/lib/store/ingredient/types'
 import {create} from 'zustand'
 import {devtools, DevtoolsOptions} from 'zustand/middleware'

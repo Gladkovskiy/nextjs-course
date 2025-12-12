@@ -1,4 +1,4 @@
-import {IngredientsSchemType} from '@/components/UI/forms/validation'
+import {IngredientsSchemType} from '@/lib/formik/ingredient/validation'
 import {Ingredient} from 'generated/prisma'
 
 export interface IngredientState {

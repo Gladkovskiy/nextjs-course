@@ -1,9 +1,9 @@
 'use client'
 
-import {ingredientsInitialState} from '@/components/UI/forms/initalState'
-import {IngredientsNamesType, IngredientsSchemType, ingredientsValidation} from '@/components/UI/forms/validation'
 import {CATEGORY_OPTIONS, UNIT_OPTIONS} from '@/config/const/select-option'
 import {useSession} from '@/lib/auth/auth-client'
+import {initialStateIngredient} from '@/lib/formik/ingredient/initialState'
+import {IngredientsNamesType, IngredientsSchemType, ingredientsValidation} from '@/lib/formik/ingredient/validation'
 import {useIngredient, useIngredientActions} from '@/lib/store/ingredient/hooks'
 import {Form} from '@heroui/form'
 import {Button, Input, Select, SelectItem} from '@heroui/react'
@@ -16,7 +16,7 @@ const IngredientForm: FC = () => {
 	const {data} = useSession()
 
 	const formik = useFormik<IngredientsSchemType>({
-		initialValues: ingredientsInitialState,
+		initialValues: initialStateIngredient,
 		validationSchema: ingredientsValidation,
 		onSubmit: async values => {
 			await addIngredient(values)

@@ -1,3 +1,5 @@
+'use server'
+
 import {RecipeSchemType} from '@/lib/formik/recipe/validation'
 import prisma from '@/lib/prisma/prisma'
 import {ActionResponse} from '@/types/resposnse'

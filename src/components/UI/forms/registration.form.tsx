@@ -1,12 +1,15 @@
 'use client'
 
+import {signUp} from '@/lib/auth/auth-client'
+import {initialStateRegistration} from '@/lib/formik/registration/initialState'
+import {
+	RegistrationNamesType,
+	RegistrationSchemType,
+	registrationValidation,
+} from '@/lib/formik/registration/validation'
 import {Form} from '@heroui/form'
 import {Button, Input} from '@heroui/react'
 import {useFormik} from 'formik'
-
-import {registrationInitialState} from '@/components/UI/forms/initalState'
-import {RegistrationNamesType, RegistrationSchemType, registrationValidation} from '@/components/UI/forms/validation'
-import {signUp} from '@/lib/auth/auth-client'
 import {useState} from 'react'
 
 interface IProps {
@@ -17,7 +20,7 @@ const RegistrationForm = ({onClose}: IProps) => {
 	const [error, setError] = useState<string | null>(null)
 
 	const formik = useFormik<RegistrationSchemType>({
-		initialValues: registrationInitialState,
+		initialValues: initialStateRegistration,
 		validationSchema: registrationValidation,
 		onSubmit: async values => {
 			const {email, name, password} = values

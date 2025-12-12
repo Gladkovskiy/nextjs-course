@@ -1,12 +1,11 @@
 'use client'
 
+import {signIn} from '@/lib/auth/auth-client'
+import {initialStateLogin} from '@/lib/formik/login/initialState'
+import {LoginNamesType, LoginSchemType, loginValidation} from '@/lib/formik/login/validation'
 import {Form} from '@heroui/form'
 import {Button, Input} from '@heroui/react'
 import {useFormik} from 'formik'
-
-import {loginInitialState} from '@/components/UI/forms/initalState'
-import {LoginNamesType, LoginSchemType, loginValidation} from '@/components/UI/forms/validation'
-import {signIn} from '@/lib/auth/auth-client'
 import {useState} from 'react'
 
 interface IProps {
@@ -17,7 +16,7 @@ const LoginForm = ({onClose}: IProps) => {
 	const [error, setError] = useState<string | null>(null)
 
 	const formik = useFormik<LoginSchemType>({
-		initialValues: loginInitialState,
+		initialValues: initialStateLogin,
 		validationSchema: loginValidation,
 		onSubmit: async values => {
 			const {email, password} = values
